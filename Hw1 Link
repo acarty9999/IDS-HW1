@@ -1,0 +1,54 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "LBh4-EC4surQ"
+      },
+      "outputs": [],
+      "source": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "According to the seed data (Sheet 1), sunflower seeds grow the healthiest chickens by far. The chickens grow the biggest with sunflower seeds and are better in min, mean, and max weights comparisons."
+      ],
+      "metadata": {
+        "id": "1N7_dC1IwMQG"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "According to the Insurance Provider data (Sheet 2), Progressive, by the averages, is the best insurance provider out of the three."
+      ],
+      "metadata": {
+        "id": "rfi5cvyR0yED"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "To summarize my findings, all I did was analyze the data given to me in 3-4 categories like minimun, mean, average, and sum to choose which is the best in their specific category."
+      ],
+      "metadata": {
+        "id": "LLtcp9SR3AFk"
+      }
+    }
+  ]
+}
