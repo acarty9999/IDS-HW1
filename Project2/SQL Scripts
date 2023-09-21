@@ -1,0 +1,134 @@
+Replace Missing Values:
+
+UPDATE UsArrests
+SET Assault = (SELECT AVG (Assault) FROM UsArrests WHERE Assault IS NOT NULL)
+WHERE Assault IS NULL;
+
+Min, Max, Mean, Variance:
+
+SELECT
+'Murder' AS Category,
+MIN (Murder) AS MinValue,
+MAX (Murder) AS MaxValue,
+(SUM (Murder) / COUNT (Murder)) AS MeanValue, --AVG isn't working for me
+(SUM ((Murder - (SELECT (SUM (Murder) / COUNT (Murder)) FROM UsArrests)) * (Murder
+- (SELECT (SUM Murder) / COUNT (Murder) ) FROM UsArrests) )) / COUNT (Murder) ) AS
+VarianceValue
+FROM UsArrests
+UNION ALL
+SELECT
+'Assault' AS Category,
+MIN (Assault) AS MinValue,
+MAX (Assault) AS MaxValue,
+(SUM (Assault) / COUNT (Assault) ) AS MeanValue,
+(SUM( (Assault - (SELECT ( SUM(Assault) / COUNT Assault) ) FROM UsArrests) ) *
+(Assault - (SELECT (SUM (Assault) / COUNT Assault) ) FROM UsArrests))) /
+COUNT (Assault)) AS VarianceValue
+FROM UsArrests
+UNION ALL
+SELECT
+'UrbanPop' AS Category,
+MIN (UrbanPop) AS MinValue,
+MAX (UrbanPop) AS MaxValue,
+(SUM (UrbanPop) / COUNT (UrbanPop)) AS MeanValue,
+(SUM ( (UrbanPop - (SELECT (SUM (UrbanPop) / COUNT (UrbanPop)) FROM UsArrests) ) *
+(UrbanPop - (SELECT (SUM (UrbanPop) / COUNT (UrbanPop)) FROM UsArrests))) /
+COUNT (UrbanPop)) AS VarianceValue
+FROM UsArrests;
+
+Highest Murder: 
+
+SELECT State
+FROM UsArrests
+WHERE Murder = (SELECT MAX (Murder) FROM UsArrests);
+
+Ascending Order:
+
+SELECT State, UrbanPop
+FROM UsArrests
+ORDER BY UrbanPop ASC;
+
+Higher/Lower than Arizona:
+
+SELECT State
+FROM UsArrests
+WHERE Murder > (SELECT Murder FROM UsArrests WHERE State = 'Arizona');
+SELECT COUNT (State) AS NumberOfStates
+FROM UsArrests
+WHERE Murder > (SELECT Murder FROM UsArrests WHERE State = 'Arizona');
+
+Median Missing Values:
+
+UPDATE childMort
+SET Under Five Mort Rate = (
+SELECT X.Under Five Mort Rate
+FROM childMort x
+WHERE X. Under Five Mort Rate IS NOT NULL
+ORDER BY X.Under Five Mort Rate
+LIMIT 1 OFFSET
+SELECT COUNT *) / 2
+FROM childMort
+WHERE Under Five Mort Rate IS NOT NULL
+Run SQL
+•› Available Tables
+WHERE Under Five Mort Rate IS NULL;
+
+Display Table:
+
+SELECT * FROM childMort;
+
+Low/High Year:
+
+SELECT Year
+FROM childMort
+WHERE Infant Mort Rate = (
+SELECT MIN (Infant Mort Rate)
+FROM childmort);
+
+SELECT Year
+FROM childMort
+WHERE Infant Mort Rate = (
+SELECT MAX (Infant Mort Rate)
+FROM childMort)
+
+NeoNat High:
+
+SELECT Year
+FROM childMort
+WHERE Nat Mort Rate > (
+SELECT AVG Nat Mort Rate)
+FROM childMort
+);
+
+Infant Mort Rate Desc: 
+
+SELECT Year, Infant_Mort_Rate
+FROM childMort
+ORDER BY Infant Mort Rate DESC;
+
+Min, AVG, VAR, SQRT
+SELECT
+MIN Under Five Mort Rate) AS Min Under Five Mort_Rate, MAX (Under_Five_Mort_Rate) AS Max_Under_Five_Mort_Rate,
+AVG (Under_Five_Mort_Rate) AS Mean_Under_Five_Mort_Rate,
+VARIANCE (Under_Five_Mort_Rate) AS Variance_Under_Five_Mort_Rate,
+SORT VARIANCE Under Five Mort Rate AS StdDev Under Five Mort Rate
+FROM childMort;
+
+Add Column Table:
+
+ALTER TABLE childMort
+ADD COLUMN Above_Five_Mort_Rate;
+
+UPDATE childMort -- added .5 
+SET Above_Five_Mort_Rate = (
+  CASE
+    WHEN Under_Five_Mort_Rate IS NOT NULL THEN Under_Five_Mort_Rate + 0.5
+    WHEN Infant_Mort_Rate IS NOT NULL THEN Infant_Mort_Rate + 0.5
+    WHEN Nat_Mort_Rate IS NOT NULL THEN Nat_Mort_Rate + 0.5
+    ELSE NULL
+  END
+);
+
+
+
+
