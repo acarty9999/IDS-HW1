@@ -60,22 +60,21 @@ WHERE Murder > (SELECT Murder FROM UsArrests WHERE State = 'Arizona');
 Median Missing Values:
 
 UPDATE childMort
-SET Under Five Mort Rate = (
-SELECT X.Under Five Mort Rate
-FROM childMort x
-WHERE X. Under Five Mort Rate IS NOT NULL
-ORDER BY X.Under Five Mort Rate
-LIMIT 1 OFFSET
-SELECT COUNT *) / 2
+SET "Under_Five_Mort_Rate" = (
+SELECT median_value
+FROM (
+SELECT "Under_Five_Mort_Rate" AS median_value
 FROM childMort
-WHERE Under Five Mort Rate IS NOT NULL
-Run SQL
-•› Available Tables
-WHERE Under Five Mort Rate IS NULL;
+WHERE "Under_Five_Mort_Rate" IS NOT NULL
+ORDER BY "Under_Five_Mort_Rate"
+LIMIT 2 - (SELECT COUNT(*) % 2)
+OFFSET (SELECT (COUNT(*) - 1) / 2
+FROM childMort
+WHERE "Under_Five_Mort_Rate" IS NOT NULL)
+)
+)
+WHERE "Under_Five_Mort_Rate" IS NULL;
 
-Display Table:
-
-SELECT * FROM childMort;
 
 Low/High Year:
 
